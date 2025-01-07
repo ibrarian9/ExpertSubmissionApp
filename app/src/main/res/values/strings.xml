@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Expert Submission App</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_dynamicfeature">fav</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="poto">poto</string>
+    <string name="price">price</string>
+    <string name="desc">desc…</string>
+    <string name="laptop">LAPTOP</string>
+    <string name="title_fav">Module Title</string>
+    <string name="power_disconnected">Power Disconnected</string>
+    <string name="power_connected">Power Connected</string>
+    <string name="err_msg">Error Brohh!!!</string>
+    <string name="list_barang">List Barang</string>
+    <string name="favContent">Button to Intent FavoriteActivity</string>
+    <string name="imageContent">Image for Detail</string>
+    <string name="judul">Judul</string>
+    <string name="addFavContent">Button to add favorite</string>
+    <string name="title_core">core</string>
+</resources>
