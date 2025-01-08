@@ -1,5 +1,9 @@
 package com.app.expertsubmissionapp.presentation.home
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +24,13 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val bind get() = _binding!!
     private val productsAdapter = ProductsAdapter()
+    private lateinit var broadcastReceiver: BroadcastReceiver
     private val homeViewModel: HomeViewModel by viewModel()
+
+    override fun onStart() {
+        super.onStart()
+        broadcastReceiver()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,7 +51,7 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(R.id.navigation_detail, bundle)
             }
 
-            homeViewModel.product.observe(requireActivity()) { produk ->
+            homeViewModel.product.observe(viewLifecycleOwner) { produk ->
                  produk.let {
                      when(it) {
                          is Resource.Loading -> progressBar.visibility = View.VISIBLE
@@ -60,6 +70,29 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun broadcastReceiver() {
+        broadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent) {
+                when (intent.action){
+                    Intent.ACTION_POWER_CONNECTED -> {
+                        bind.tvPowerStatus.text = getString(R.string.power_connected)
+                    }
+                    Intent.ACTION_POWER_DISCONNECTED -> {
+                        bind.tvPowerStatus.text = getString(R.string.power_disconnected)
+                    }
+                }
+            }
+        }
+
+        val intentFilter = IntentFilter()
+        intentFilter.apply {
+            addAction(Intent.ACTION_POWER_CONNECTED)
+            addAction(Intent.ACTION_POWER_DISCONNECTED)
+        }
+
+        requireActivity().registerReceiver(broadcastReceiver, intentFilter)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -71,6 +104,12 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding?.rv?.adapter = null
         _binding = null
+    }
+
+    override fun onStop() {
+        super.onStop()
+        broadcastReceiver()
     }
 }

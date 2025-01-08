@@ -20,4 +20,5 @@
     <string name="judul">Judul</string>
     <string name="addFavContent">Button to add favorite</string>
     <string name="title_core">core</string>
+    <string name="power_status">Power Status</string>
 </resources>

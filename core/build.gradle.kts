@@ -10,7 +10,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 28
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -18,6 +18,13 @@ android {
 
     buildTypes {
         release {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        debug {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -48,9 +55,9 @@ dependencies {
     api(libs.androidx.navigation.ui.ktx)
     api(libs.androidx.navigation.fragment)
     api(libs.androidx.navigation.dynamic.features.fragment)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestApi(libs.junit)
+    androidTestApi(libs.androidx.junit)
+    androidTestApi(libs.androidx.espresso.core)
 
     // Retrofit
     api(libs.retrofit)
@@ -69,9 +76,12 @@ dependencies {
     api(libs.androidx.room.runtime)
     api(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
-    androidTestImplementation(libs.androidx.room.testing)
+    androidTestApi(libs.androidx.room.testing)
 
     // Sql Lite
     api(libs.android.database.sqlcipher)
     api(libs.androidx.sqlite.ktx)
+
+    // Leak Canary
+    debugApi(libs.leakcanary.android)
 }

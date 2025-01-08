@@ -19,14 +19,17 @@ class FavoriteFragment : Fragment() {
     private val productsAdapter = ProductsAdapter()
     private val favoriteViewModel: FavoriteViewModel by viewModel()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loadKoinModules(favoriteModule)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loadKoinModules(favoriteModule)
-
         bind.apply {
 
-            favoriteViewModel.favoriteProduct.observe(requireActivity()) {
+            favoriteViewModel.favoriteProduct.observe(viewLifecycleOwner) {
                 productsAdapter.submitList(it)
             }
 
@@ -47,6 +50,8 @@ class FavoriteFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding?.rv?.adapter = null
         _binding = null
+
     }
 }
