@@ -10,23 +10,20 @@ jobs:
       JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
       PATH: "/usr/lib/jvm/java-17-openjdk-amd64/bin:$PATH"
     steps:
-      # Add SSH installation step
+      # Use HTTPS checkout
       - run:
-          name: Install SSH client
+          name: Set Git URL to HTTPS
           command: |
-            sudo apt-get update
-            sudo apt-get install -y openssh-client
-      
-      # Checkout with HTTPS instead of SSH
-      - checkout:
-          path: .
+            git config --global url."https://github.com/".insteadOf git@github.com:
+            
+      - checkout
       
       - restore_cache:
           key: android-orb-v1-
           
       - run:
           name: Chmod permissions
-          command: sudo chmod +x ./gradlew
+          command: chmod +x ./gradlew
           
       - run:
           name: Download Dependencies
