@@ -8,6 +8,7 @@
     <string name="title_favorite">Favorite</string>
     <string name="poto">poto</string>
     <string name="price">price</string>
+    <string name="price_format">Price : $%s</string>
     <string name="desc">desc…</string>
     <string name="laptop">LAPTOP</string>
     <string name="title_fav">Module Title</string>

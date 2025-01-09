@@ -1,6 +1,15 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.ExpertSubmissionApp" parent="Theme.MaterialComponents.Light.NoActionBar">
 
+    </style>
+
+    <style name="Theme.Splash" parent="Theme.ExpertSubmissionApp" />
+
+    <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_store_app</item>
+        <item name="windowSplashScreenAnimationDuration">300</item>
+        <item name="postSplashScreenTheme">@style/Theme.ExpertSubmissionApp</item>
     </style>
 </resources>

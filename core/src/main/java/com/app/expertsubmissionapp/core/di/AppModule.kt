@@ -1,6 +1,7 @@
 package com.app.expertsubmissionapp.core.di
 
 import androidx.room.Room
+import com.app.expertsubmissionapp.core.BuildConfig
 import com.app.expertsubmissionapp.core.data.ProductRepository
 import com.app.expertsubmissionapp.core.data.source.local.LocalDataSource
 import com.app.expertsubmissionapp.core.data.source.local.room.ProductDatabase
@@ -37,13 +38,18 @@ val appModule = module {
     }
 
     single {
-        val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        // Logging with level
+        val logging = if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        } else {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+        }
 
         val hostname = "fakestoreapi.com"
         val certificatePinner = CertificatePinner.Builder()
-            .add(hostname, "sha256/NhyY+Wdb5NLalYvJmG9JbPeZ+6LgXjCLmTILNyHwKIA=")
-            .add(hostname, "sha256/81Wf12bcLlFHQAfJluxnzZ6Frg+oJ9PWY/Wrwur8viQ=")
-            .add(hostname, "sha256/hxqRlPTu1bMS/0DITB1SSu0vd4u/8l8TjPgfaAp63Gc=")
+            .add(hostname, "sha256/84DWgxXF++4g+IXNtankij3ZjZbbpfs+f8JYu7LmWTI=")
+            .add(hostname, "sha256/kIdp6NNEd8wsugYyyIYFsi1ylMCED3hZbSR8ZFsa/A4=")
+            .add(hostname, "sha256/mEflZT5enoR1FuXLgYYGqnVEoZvmf9c2bVBpiOjYQ0c=")
             .build()
 
         val client = OkHttpClient.Builder()

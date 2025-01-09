@@ -63,4 +63,7 @@ dependencies {
     // Sqlchiper
     implementation(libs.android.database.sqlcipher)
     implementation(libs.androidx.sqlite.ktx)
+
+    // Splash Screen
+    implementation(libs.androidx.core.splashscreen)
 }

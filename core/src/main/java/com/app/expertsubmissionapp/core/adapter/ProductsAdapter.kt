@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.app.expertsubmissionapp.core.R
 import com.app.expertsubmissionapp.core.databinding.ListItemBinding
 import com.app.expertsubmissionapp.core.domain.model.MyProduct
 import com.bumptech.glide.Glide
@@ -15,11 +16,14 @@ class ProductsAdapter : ListAdapter<MyProduct, ProductsAdapter.ListViewHolder>(D
 
     inner class ListViewHolder(private val bind: ListItemBinding): RecyclerView.ViewHolder(bind.root) {
         fun binding(dataList: MyProduct) {
+
+            val context = itemView.context
+
             bind.apply {
-                Glide.with(itemView.context).load(dataList.image).fitCenter().dontAnimate().into(image)
+                Glide.with(context).load(dataList.image).fitCenter().dontAnimate().into(image)
                 laptop.text = dataList.title
                 desc.text = dataList.description
-                harga.text = dataList.price
+                harga.text = context.getString(R.string.price_format, dataList.price)
             }
         }
         init {
