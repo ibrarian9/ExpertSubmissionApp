@@ -6,16 +6,22 @@ orbs:
 executors:
   android-executor:
     docker:
-      - image: circleci/android:api-30
+      - image: cimg/android:2022.11  # Updated image with JDK 17 support
     working_directory: ~/code
 
 jobs:
   build:
     executor: android-executor
+    environment:
+      JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64  # Ensures JDK 17 is used
+      PATH: "/usr/lib/jvm/java-17-openjdk-amd64/bin:$PATH"  # Updates PATH for Java commands
     steps:
       - checkout
       - restore_cache:
           key: android-orb-v1-
+      - run:
+          name: Verify JDK Version
+          command: java -version
       - run:
           name: Chmod permissions
           command: sudo chmod +x ./gradlew
