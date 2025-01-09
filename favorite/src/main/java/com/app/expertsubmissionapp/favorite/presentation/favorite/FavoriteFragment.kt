@@ -52,6 +52,5 @@ class FavoriteFragment : Fragment() {
         super.onDestroyView()
         _binding?.rv?.adapter = null
         _binding = null
-
     }
 }

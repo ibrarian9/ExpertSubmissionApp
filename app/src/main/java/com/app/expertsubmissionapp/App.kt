@@ -1,4 +1,4 @@
-package com.app.expertsubmissionapp.core
+package com.app.expertsubmissionapp
 
 import android.app.Application
 import com.app.expertsubmissionapp.core.di.appModule
