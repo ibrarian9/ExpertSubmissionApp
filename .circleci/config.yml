@@ -2,12 +2,11 @@ version: 2.1
 
 orbs:
   android: circleci/android@2.4.0
-  snyk: snyk/snyk@1.4.0
-
+ 
 jobs:
   build:
-    machine:
-      image: android:default
+    machine: 
+        image: android:default
     resource_class: large
     steps:
       - checkout
@@ -37,40 +36,46 @@ jobs:
           paths:
             - ~/.android/build-cache
             - ~/.android/cache
-
+      
       # Code Style Check
       - run:
           name: Run Ktlint Check
           command: ./gradlew ktlintCheck
-
+      
       # Build
       - run:
           name: Run Build
           command: ./gradlew build
-
+      
       # Tests with Coverage
       - run:
           name: Run Tests with Coverage
           command: ./gradlew testDebugUnitTest jacocoTestReport
-
+      
       # Regular Tests
       - run:
           name: Run Tests
           command: ./gradlew lint test
-
-      # Vulnerability Scan
-      - snyk/scan:
-          fail-on-issues: false
-          monitor-on-build: true
-          severity-threshold: high
-
+      
+      # Install and Run Snyk
+      - run:
+          name: Install Snyk
+          command: |
+            sudo npm install -g snyk
+            snyk auth $SNYK_TOKEN
+      - run:
+          name: Run Snyk Security Scan
+          command: |
+            snyk test --all-projects || true
+            snyk monitor --all-projects || true
+      
       # Store Results
-      - store_artifacts:
+      - store_artifacts: 
           path: app/build/reports
           destination: reports
       - store_test_results:
           path: app/build/test-results
-      - store_artifacts:
+      - store_artifacts:  
           path: app/build/outputs/apk/debug/
           destination: artifact-file
       - store_artifacts:
