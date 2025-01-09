@@ -6,7 +6,7 @@ orbs:
 executors:
   android-executor:
     docker:
-      - image: cimg/android:2022.11  # Updated image with JDK 17 support
+      - image: cimg/android:2022.12.1  # Updated image with JDK 17 support
     working_directory: ~/code
 
 jobs:
