@@ -6,6 +6,9 @@ orbs:
 jobs:
   build:
     executor: android/android
+    environment:
+      JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64  # Ensures JDK 17 is used
+      PATH: "/usr/lib/jvm/java-17-openjdk-amd64/bin:$PATH"
     steps:
       - checkout:
           path: .
