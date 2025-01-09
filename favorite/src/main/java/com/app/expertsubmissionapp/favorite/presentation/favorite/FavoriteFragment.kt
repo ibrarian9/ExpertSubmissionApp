@@ -14,8 +14,8 @@ import org.koin.core.context.loadKoinModules
 
 class FavoriteFragment : Fragment() {
 
-    private var _binding: FragmentFavoriteBinding? = null
-    private val bind get() = _binding!!
+    private var binding: FragmentFavoriteBinding? = null
+    private val bind get() = binding!!
     private val productsAdapter = ProductsAdapter()
     private val favoriteViewModel: FavoriteViewModel by viewModel()
 
@@ -44,13 +44,13 @@ class FavoriteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         return bind.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding?.rv?.adapter = null
-        _binding = null
+        binding?.rv?.adapter = null
+        binding = null
     }
 }

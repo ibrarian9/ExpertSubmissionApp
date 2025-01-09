@@ -1,3 +1,4 @@
+
 package com.app.expertsubmissionapp.presentation.detail
 
 import android.os.Bundle
@@ -13,12 +14,14 @@ import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailFragment : Fragment() {
-
-    private var _binding: FragmentDetailBinding? = null
-    private val bind get() = _binding!!
+    private var binding: FragmentDetailBinding? = null
+    private val bind get() = binding!!
     private val detailViewModel: DetailViewModel by viewModel()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         val productId = arguments?.getInt("productId") ?: return
@@ -52,15 +55,16 @@ class DetailFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentDetailBinding.inflate(inflater, container, false)
+        binding = FragmentDetailBinding.inflate(inflater, container, false)
         return bind.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 }

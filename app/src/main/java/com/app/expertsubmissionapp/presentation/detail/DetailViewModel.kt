@@ -1,3 +1,4 @@
+
 package com.app.expertsubmissionapp.presentation.detail
 
 import androidx.lifecycle.ViewModel
@@ -6,7 +7,10 @@ import com.app.expertsubmissionapp.core.domain.model.MyProduct
 import com.app.expertsubmissionapp.core.domain.usecase.ProductUseCase
 
 class DetailViewModel(private val productUseCase: ProductUseCase) : ViewModel() {
-    fun setFavorite(product: MyProduct, newStatus: Boolean) {
+    fun setFavorite(
+        product: MyProduct,
+        newStatus: Boolean,
+    ) {
         productUseCase.setFavoriteProduct(product, newStatus)
     }
 

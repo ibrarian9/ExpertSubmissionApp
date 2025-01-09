@@ -1,15 +1,14 @@
 package com.app.expertsubmissionapp.presentation
 
- import android.os.Bundle
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
- import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
- import androidx.navigation.fragment.NavHostFragment
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.fragment.NavHostFragment
 import com.app.expertsubmissionapp.R
 import com.app.expertsubmissionapp.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         navView.setOnItemSelectedListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.navigation_home -> {
                     navController.popBackStack(R.id.navigation_home, false)
                     true

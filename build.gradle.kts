@@ -5,4 +5,5 @@ plugins {
     alias(libs.plugins.android.dynamic.feature) apply false
     id("com.google.devtools.ksp") version "1.9.22-1.0.16" apply false
     alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.ktlint) apply false
 }

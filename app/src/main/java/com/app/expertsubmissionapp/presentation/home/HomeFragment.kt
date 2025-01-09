@@ -1,3 +1,4 @@
+
 package com.app.expertsubmissionapp.presentation.home
 
 import android.content.BroadcastReceiver
@@ -20,9 +21,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
 class HomeFragment : Fragment() {
-
-    private var _binding: FragmentHomeBinding? = null
-    private val bind get() = _binding!!
+    private var binding: FragmentHomeBinding? = null
+    private val bind get() = binding!!
     private val productsAdapter = ProductsAdapter()
     private lateinit var broadcastReceiver: BroadcastReceiver
     private val homeViewModel: HomeViewModel by viewModel()
@@ -32,57 +32,64 @@ class HomeFragment : Fragment() {
         broadcastReceiver()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         loadKoinModules(homeModule)
 
         bind.apply {
-
             rv.apply {
                 layoutManager = LinearLayoutManager(requireActivity())
                 adapter = productsAdapter
             }
 
             productsAdapter.onItemClick = {
-                val bundle = Bundle().apply {
-                    putInt("productId", it.id)
-                }
+                val bundle =
+                    Bundle().apply {
+                        putInt("productId", it.id)
+                    }
                 findNavController().navigate(R.id.navigation_detail, bundle)
             }
 
             homeViewModel.product.observe(viewLifecycleOwner) { produk ->
-                 produk.let {
-                     when(it) {
-                         is Resource.Loading -> progressBar.visibility = View.VISIBLE
-                         is Resource.Success<*> -> {
-                             progressBar.visibility = View.GONE
-                             productsAdapter.submitList(it.data)
-                         }
-                         is Resource.Error -> {
-                             progressBar.visibility = View.GONE
-                             viewError.root.visibility = View.VISIBLE
-                             viewError.tvError.text = it.message ?: "Something Wrong!"
-                         }
-                     }
-                 }
+                produk.let {
+                    when (it) {
+                        is Resource.Loading -> progressBar.visibility = View.VISIBLE
+                        is Resource.Success<*> -> {
+                            progressBar.visibility = View.GONE
+                            productsAdapter.submitList(it.data)
+                        }
+                        is Resource.Error -> {
+                            progressBar.visibility = View.GONE
+                            viewError.root.visibility = View.VISIBLE
+                            viewError.tvError.text = it.message ?: "Something Wrong!"
+                        }
+                    }
+                }
             }
         }
     }
 
     private fun broadcastReceiver() {
-        broadcastReceiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent) {
-                when (intent.action){
-                    Intent.ACTION_POWER_CONNECTED -> {
-                        bind.tvPowerStatus.text = getString(R.string.power_connected)
-                    }
-                    Intent.ACTION_POWER_DISCONNECTED -> {
-                        bind.tvPowerStatus.text = getString(R.string.power_disconnected)
+        broadcastReceiver =
+            object : BroadcastReceiver() {
+                override fun onReceive(
+                    context: Context?,
+                    intent: Intent,
+                ) {
+                    when (intent.action) {
+                        Intent.ACTION_POWER_CONNECTED -> {
+                            bind.tvPowerStatus.text = getString(R.string.power_connected)
+                        }
+                        Intent.ACTION_POWER_DISCONNECTED -> {
+                            bind.tvPowerStatus.text = getString(R.string.power_disconnected)
+                        }
                     }
                 }
             }
-        }
 
         val intentFilter = IntentFilter()
         intentFilter.apply {
@@ -96,16 +103,16 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return bind.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding?.rv?.adapter = null
-        _binding = null
+        binding?.rv?.adapter = null
+        binding = null
     }
 
     override fun onStop() {
