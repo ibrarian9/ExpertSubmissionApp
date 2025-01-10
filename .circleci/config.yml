@@ -55,10 +55,8 @@ jobs:
 
       # Vulnerability Scan
       - snyk/scan:
-          fail-on-issues: false
-          monitor-on-build: true
-          severity-threshold: high
-          additional-args: --token 7764c241-c4ff-4066-9fe6-5537f170c889
+            fail-on-issues: false
+            monitor-on-build: false
 
       # Store Results
       - store_artifacts:
