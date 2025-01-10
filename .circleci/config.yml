@@ -58,6 +58,7 @@ jobs:
           fail-on-issues: false
           monitor-on-build: true
           severity-threshold: high
+          additional-args: --token 7764c241-c4ff-4066-9fe6-5537f170c889
 
       # Store Results
       - store_artifacts:
@@ -68,6 +69,3 @@ jobs:
       - store_artifacts:
           path: app/build/outputs/apk/debug/
           destination: artifact-file
-      - store_artifacts:
-          path: app/build/reports/jacoco/jacocoTestReport
-          destination: coverage-report
