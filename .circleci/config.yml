@@ -48,11 +48,6 @@ jobs:
           name: Run Build
           command: ./gradlew build
 
-      # Tests with Coverage
-      - run:
-          name: Run Tests with Coverage
-          command: ./gradlew testDebugUnitTest jacocoTestReport
-
       # Regular Tests
       - run:
           name: Run Tests
