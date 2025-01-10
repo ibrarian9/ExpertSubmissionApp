@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   android: circleci/android@2.4.0
-  snyk: snyk/snyk@1.4.0
 
 jobs:
   build:
@@ -52,11 +51,6 @@ jobs:
       - run:
           name: Run Tests
           command: ./gradlew lint test
-
-      # Vulnerability Scan
-      - snyk/scan:
-            fail-on-issues: false
-            monitor-on-build: false
 
       # Store Results
       - store_artifacts:
