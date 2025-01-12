@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   android: circleci/android@2.4.0
-  snyk: snyk/snyk@1.4.0
 
 jobs:
   build:
@@ -53,12 +52,6 @@ jobs:
           name: Run Tests
           command: ./gradlew lint test
 
-      # Vulnerability Scan
-      - snyk/scan:
-          fail-on-issues: false
-          monitor-on-build: true
-          severity-threshold: high
-
       # Store Results
       - store_artifacts:
           path: app/build/reports
@@ -68,6 +61,3 @@ jobs:
       - store_artifacts:
           path: app/build/outputs/apk/debug/
           destination: artifact-file
-      - store_artifacts:
-          path: app/build/reports/jacoco/jacocoTestReport
-          destination: coverage-report
