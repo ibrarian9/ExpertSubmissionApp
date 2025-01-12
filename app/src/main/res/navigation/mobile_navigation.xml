@@ -32,6 +32,12 @@
         android:label="@string/title_favorite"
         app:moduleName="favorite"
         android:name="com.app.expertsubmissionapp.favorite.presentation.favorite.FavoriteFragment"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/action_favorite_to_detail"
+            app:destination="@id/navigation_detail"
+            app:popUpTo="@id/navigation_favorite"
+            app:popUpToInclusive="false" />
+    </fragment>
 
 </navigation>
